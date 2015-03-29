@@ -5,14 +5,12 @@ import java.net.ServerSocket;
 
 public class NetworkListener extends Thread{
 
-	private static final int APP_PORT = 9001;
-
 
 	public void run(){
 
 		ServerSocket listener = null;
 		try {
-			listener = new ServerSocket(APP_PORT);
+			listener = new ServerSocket(NetworkData.APP_PORT);
 			while (true) {
 				new RequestHandler(listener.accept()).start();
 			}

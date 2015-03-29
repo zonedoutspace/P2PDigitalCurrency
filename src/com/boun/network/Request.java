@@ -1,4 +1,4 @@
-package com.boun.network.requests;
+package com.boun.network;
 
 import com.google.gson.Gson;
 
@@ -11,12 +11,13 @@ import com.google.gson.Gson;
 public abstract class Request {
 			
 	public abstract int getRequestCode();
+	public abstract void initializeRequest() throws Exception;
 
 	//handle the request and return outputs
 	public abstract  String handleRequest();
 	
 	//for clients
-	public String createRequest(){
+	public String createRequest() throws Exception{		
 		Gson gson = new Gson();
 		EncapsulatedRequest en= new EncapsulatedRequest(this.getRequestCode(),gson.toJson(this));
 		return gson.toJson(en);

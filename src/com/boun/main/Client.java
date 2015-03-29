@@ -1,6 +1,6 @@
 package com.boun.main;
 
-import com.boun.network.NetworkListener;
+import com.boun.network.peers.PeerOperation;
 
 public class Client {
 
@@ -10,13 +10,19 @@ public class Client {
 		System.out.println("Downloading peers' ip addresses...");
 		
 		
-		NetworkListener listener = new NetworkListener();
-		listener.start();
+		/*NetworkListener listener = new NetworkListener();
+		listener.start();*/
 		
 		
-		System.out.println("The program is finishing.");
+		try {
+			PeerOperation.sendIpToServer();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("gönderilemedi");
+		}
 		
-		
+		System.out.println("The program is finishing.");		
 
 	}
 

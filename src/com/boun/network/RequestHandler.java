@@ -5,11 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-
-
-
-import com.boun.network.requests.EncapsulatedRequest;
-import com.boun.network.requests.NewPeerEchoRequest;
+import com.boun.network.peers.NewPeerEchoRequest;
 import com.google.gson.Gson;
 
 /**
@@ -39,7 +35,7 @@ public class RequestHandler extends Thread {
 			//gets input from client
 			String inputString = in.readUTF();
 			
-			//System.out.println(inputString);
+			System.out.println(inputString);
 			
 			//parses the request and process
 			EncapsulatedRequest encapsulatedRequest = RequestHandler.getRequest(inputString);

@@ -1,4 +1,4 @@
-package com.boun.network.requests;
+package com.boun.network;
 
 /**
  * @author ERKAN EROL 2010400129
