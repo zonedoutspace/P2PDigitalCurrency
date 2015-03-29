@@ -1,7 +1,7 @@
 package com.boun.structures;
 
 /**
- * outputs of a transaction
+ * inputs of a transaction
  **/
 
 public class TransactionInput {

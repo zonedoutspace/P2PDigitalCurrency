@@ -11,6 +11,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 import com.boun.file.FileOperations;
+import com.boun.structures.StringsKeyPair;
 
 public class Generator {
 
@@ -19,7 +20,7 @@ public class Generator {
 
 
 
-	public static void createKeys() throws Exception {
+	public static void createMyKeys() throws Exception {
 
 		KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
 		kpg.initialize(512);
@@ -33,6 +34,26 @@ public class Generator {
 
 		FileOperations.writeFile(privateKeyFile,Base58.encode(privateByte));
 		FileOperations.writeFile(publicKeyFile,Base58.encode(publicByte));		  
+	}
+	
+	public static StringsKeyPair createKeys() throws Exception {
+
+		KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+		kpg.initialize(512);
+		KeyPair keyPair = kpg.genKeyPair();
+
+		PrivateKey privateKey = keyPair.getPrivate();
+		PublicKey publicKey = keyPair.getPublic();
+
+		byte[] privateByte = privateKey.getEncoded();
+		byte[] publicByte  = publicKey.getEncoded();
+
+		StringsKeyPair stringsKeyPair = new StringsKeyPair();
+		
+		stringsKeyPair.setPrivateKey(Base58.encode(privateByte));
+		stringsKeyPair.setPublicKey(Base58.encode(publicByte));
+		
+		return stringsKeyPair;
 	}
 
 	public static PrivateKey getMyPrivateKey() throws Exception{
@@ -88,9 +109,5 @@ public class Generator {
 
 	}
 
-
-	public static void main(String[] args) throws Exception{
-		createKeys();
-	}
 
 }
