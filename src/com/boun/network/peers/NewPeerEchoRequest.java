@@ -1,7 +1,5 @@
 package com.boun.network.peers;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import com.boun.network.NetworkData;
 import com.boun.network.Request;

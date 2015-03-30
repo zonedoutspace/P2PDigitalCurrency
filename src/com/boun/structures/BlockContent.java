@@ -22,7 +22,7 @@ public class BlockContent {
 	String minerPublicKey;
 	
 	//the variable for proof-of-work
-	int nonce;
+	long nonce;
 	
 	//the mining date
 	Date date;
@@ -59,11 +59,11 @@ public class BlockContent {
 		this.minerPublicKey = minerPublicKey;
 	}
 
-	public int getNonce() {
+	public long getNonce() {
 		return nonce;
 	}
 
-	public void setNonce(int nonce) {
+	public void setNonce(long nonce) {
 		this.nonce = nonce;
 	}
 

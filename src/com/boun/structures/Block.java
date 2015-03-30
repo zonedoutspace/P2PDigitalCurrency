@@ -5,6 +5,7 @@ public class Block {
 	
 	BlockContent content;
 	String blockHash;
+	
 	public BlockContent getContent() {
 		return content;
 	}

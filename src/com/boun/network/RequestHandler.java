@@ -5,6 +5,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import com.boun.network.mining.GetNumberOfGenesisRequest;
+import com.boun.network.mining.GetTargetRequest;
+import com.boun.network.peers.GetPeersRequest;
 import com.boun.network.peers.NewPeerEchoRequest;
 import com.google.gson.Gson;
 
@@ -69,9 +72,22 @@ public class RequestHandler extends Thread {
 		
 		Gson gson = new Gson();
 		switch(request.getRequestCode()){
-			case NewPeerEchoRequest.REQUEST_CODE:
+			
+		   case NewPeerEchoRequest.REQUEST_CODE:
 				NewPeerEchoRequest echo = (NewPeerEchoRequest) gson.fromJson(request.getRequestData(), NewPeerEchoRequest.class);
 				return echo.handleRequest();
+			
+			case GetPeersRequest.REQUEST_CODE:
+				GetPeersRequest get = (GetPeersRequest) gson.fromJson(request.getRequestData(), GetPeersRequest.class);
+				return get.handleRequest();
+			
+			case GetTargetRequest.REQUEST_CODE:
+				GetTargetRequest target = (GetTargetRequest) gson.fromJson(request.getRequestData(), GetTargetRequest.class);
+				return target.handleRequest();
+			
+			case GetNumberOfGenesisRequest.REQUEST_CODE:
+				GetNumberOfGenesisRequest numberOfGenesisRequest = (GetNumberOfGenesisRequest) gson.fromJson(request.getRequestData(), GetNumberOfGenesisRequest.class);
+				return numberOfGenesisRequest.handleRequest();
 		}
 		
 		return null;

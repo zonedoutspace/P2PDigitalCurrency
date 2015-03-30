@@ -3,7 +3,7 @@ package com.boun.network;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class NetworkData {
 	
@@ -11,11 +11,19 @@ public class NetworkData {
 	
 	public static final String SERVER_IP = "104.131.24.193";
 	
-	private static ArrayList<String> peersAddresses = new ArrayList<String>();	
+	public static class PeerList{
+		public HashSet<String> peerSet = new HashSet<String>();
+	}
+	
+	private static HashSet<String> peersAddresses = new HashSet<String>();	
 	
 	
 	public static void AddPeer(String newPeerIp){
 		peersAddresses.add(newPeerIp);
+	}
+	
+	public static void AddPeerSet(HashSet<String> peers){
+		peersAddresses.addAll(peers);
 	}
 
 	public static String getMyIp() throws Exception{
@@ -25,6 +33,12 @@ public class NetworkData {
 
 		return in.readLine(); //you get the IP as a String
 		
+	}
+	
+	public static PeerList getPeerList(){
+		PeerList peerList = new PeerList();
+		peerList.peerSet = peersAddresses;
+		return peerList;
 	}
 	
 }

@@ -78,7 +78,12 @@ public class Generator {
 		PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
 
 		return publicKey;
+	}
+	
+	public static String getMyPublicKeyString() throws Exception{
 
+		return  FileOperations.readFile(publicKeyFile);
+		
 	}
 
 	public static PublicKey getPublicKey(String publicKeyString) throws Exception{
