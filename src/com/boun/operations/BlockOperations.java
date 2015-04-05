@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 import com.boun.file.FileOperations;
 import com.boun.hashes.HashOperations;
+import com.boun.network.NetworkData;
+import com.boun.network.RequestSender;
+import com.boun.network.mining.GetGenesisBlockRequest;
 import com.boun.signature.Generator;
 import com.boun.structures.Block;
 import com.boun.structures.BlockContent;
@@ -15,8 +18,15 @@ import com.google.gson.Gson;
 
 public class BlockOperations {
 	
-	public static final String BLOCK_CHAIN_DIRECTORY = "chain";
+	//the directory of block chain
+	public static final String BLOCK_CHAIN_DIRECTORY = "/resources/chain/";
 	
+	public static int numberOfGenesis;
+	
+	
+	/**
+	 * gets a block from harddisk
+	 * */
 	public static Block getBlock(int blockID) throws IOException{
 		
 		String blockDirectory = BLOCK_CHAIN_DIRECTORY+File.pathSeparator+blockID;
@@ -26,17 +36,53 @@ public class BlockOperations {
 		return gson.fromJson(jSon,Block.class);	
 	}
 	
+	/**
+	 * writes a block to the harddisk
+	 * */
 	public static void writeBlock(Block block) throws IOException{
 		
-		String blockDirectory = BLOCK_CHAIN_DIRECTORY+File.pathSeparator+block.getContent().getBlockID();
+		String blockDirectory = BLOCK_CHAIN_DIRECTORY+block.getContent().getBlockID()+".txt";
 		
 		Gson gson = new Gson();
 		String jSon = gson.toJson(block);
 		
-		FileOperations.writeFile(block.getContent().getBlockID()+"", jSon);
+		System.out.println(blockDirectory);
+		FileOperations.writeFile(blockDirectory, jSon);
+	}
+		
+
+
+	public static int getNumberOfGenesis() {
+		return numberOfGenesis;
+	}
+	
+
+	public static void setNumberOfGenesis(int numberOfGenesis) {
+		BlockOperations.numberOfGenesis = numberOfGenesis;
+	}
+	
+	public static void downloadGenesisBlocks() throws Exception{
+		
+		for(int i=1;i<=numberOfGenesis;++i){
+			GetGenesisBlockRequest request = new GetGenesisBlockRequest();
+			request.setBlockId(-i);
+			
+			String blockJson = RequestSender.send(request, NetworkData.SERVER_IP);
+			Gson gson = new Gson();
+			
+			Block block = gson.fromJson(blockJson,Block.class);
+			
+			BlockOperations.writeBlock(block);
+			
+		}
+		
 	}
 	
 	
+
+	/**
+	 * coin mining
+	 * */
 	public static Block mine(int blockId, ArrayList<Transaction> transactions , String parentHash ,String target) throws Exception{
 		
 		Block block = new Block();

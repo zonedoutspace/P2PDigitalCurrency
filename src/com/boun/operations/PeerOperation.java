@@ -1,8 +1,10 @@
-package com.boun.network.peers;
+package com.boun.operations;
 
 import com.boun.network.NetworkData;
 import com.boun.network.RequestSender;
 import com.boun.network.NetworkData.PeerList;
+import com.boun.network.peers.GetPeersRequest;
+import com.boun.network.peers.NewPeerEchoRequest;
 import com.google.gson.Gson;
 
 public class PeerOperation {

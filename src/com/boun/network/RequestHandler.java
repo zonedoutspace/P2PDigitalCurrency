@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import com.boun.network.mining.GetGenesisBlockRequest;
 import com.boun.network.mining.GetNumberOfGenesisRequest;
 import com.boun.network.mining.GetTargetRequest;
 import com.boun.network.peers.GetPeersRequest;
@@ -35,10 +36,18 @@ public class RequestHandler extends Thread {
 			DataInputStream in = new DataInputStream(socket.getInputStream());
 			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 			
-			//gets input from client
-			String inputString = in.readUTF();
+			String stepString = in.readUTF();
 			
-			System.out.println(inputString);
+			int inputStep = Integer.valueOf(stepString);
+			
+			//System.out.println("step:"+inputStep);
+			
+			String inputString = "";
+			for(int k=0;k<inputStep;++k){
+				inputString += in.readUTF();	
+			}
+
+			//System.out.println("input:"+inputString);
 			
 			//parses the request and process
 			EncapsulatedRequest encapsulatedRequest = RequestHandler.getRequest(inputString);
@@ -47,9 +56,24 @@ public class RequestHandler extends Thread {
 			
 	        //System.out.println(resultString);
     
-	       	        
-			//writes output to the client
-	        out.writeUTF(resultString);
+			int step = (int) Math.ceil((double)resultString.length()/1000);
+			
+			out.writeUTF(step+"");
+			out.flush();
+	       	   
+			int i=0;
+			for(;i<step-1;++i){
+				
+		        out.writeUTF(resultString.substring(i*1000,(i+1)*1000));
+		       	out.flush();        
+			}
+			
+			out.writeUTF(resultString.substring(i*1000));
+	       	out.flush();        
+	       	
+	       	
+	        out.close();
+	        in.close();
 	        
 	        socket.close();
 	        
@@ -88,6 +112,10 @@ public class RequestHandler extends Thread {
 			case GetNumberOfGenesisRequest.REQUEST_CODE:
 				GetNumberOfGenesisRequest numberOfGenesisRequest = (GetNumberOfGenesisRequest) gson.fromJson(request.getRequestData(), GetNumberOfGenesisRequest.class);
 				return numberOfGenesisRequest.handleRequest();
+			
+			case GetGenesisBlockRequest.REQUEST_CODE:
+				GetGenesisBlockRequest getGenesisBlockRequest = (GetGenesisBlockRequest) gson.fromJson(request.getRequestData(), GetGenesisBlockRequest.class);
+				return getGenesisBlockRequest.handleRequest();
 		}
 		
 		return null;
