@@ -1,5 +1,6 @@
 package com.boun.main;
 
+import com.boun.file.FileOperations;
 import com.boun.network.NetworkData;
 import com.boun.network.RequestSender;
 import com.boun.network.mining.GetNumberOfGenesisRequest;
@@ -9,6 +10,11 @@ import com.boun.operations.PeerOperation;
 public class Client {
 
 	public static void main(String[] args) {
+		
+		
+		
+		
+		/*
 		
 		System.out.println("Welcome");	
 		
@@ -56,7 +62,7 @@ public class Client {
 		System.out.println("Sending ip to other peers");
 		
 		
-		
+		*/
 		
 	}
 

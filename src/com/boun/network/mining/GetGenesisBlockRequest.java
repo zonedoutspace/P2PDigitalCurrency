@@ -36,7 +36,7 @@ public class GetGenesisBlockRequest extends Request{
 	@Override
 	public String handleRequest() {
 		try {
-			return FileOperations.readFile(CreateGenesis.GENESIS_BLOCKS_DIRECTORY+blockId+".txt");
+			return FileOperations.readFile(CreateGenesis.GENESIS_DIRECTORY+blockId+".txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

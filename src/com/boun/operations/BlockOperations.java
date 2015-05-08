@@ -28,10 +28,10 @@ public class BlockOperations {
 	 * gets a block from harddisk
 	 * */
 	public static Block getBlock(int blockID) throws IOException{
-		
-		String blockDirectory = BLOCK_CHAIN_DIRECTORY+File.pathSeparator+blockID;
+		System.out.println("get block:"+blockID);
+		String blockDirectory = BLOCK_CHAIN_DIRECTORY+"/"+blockID+".txt";
 		String jSon = FileOperations.readFile(blockDirectory);
-		
+		System.out.println(jSon);
 		Gson gson = new Gson();
 		return gson.fromJson(jSon,Block.class);	
 	}

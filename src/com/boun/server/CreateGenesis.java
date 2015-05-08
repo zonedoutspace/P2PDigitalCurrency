@@ -20,73 +20,103 @@ public class CreateGenesis {
 	public static final int NUMBER_OF_USER_PER_BLOCK = 100;
 	public static final int NUMBER_OF_COINS_PER_OUTPUT= 100;
 
+	public static final String GENESIS_DIRECTORY = "/resources/genesis/";
+	public static final String GENESIS_KEYS_DIRECTORY = "/resources/genesis/keys/";
+	
 	public static final String PUBLIC_KEYS_DIRECTORY = "/resources/genesis/keys/public/";
 	public static final String PRIVATE_KEYS_DIRECTORY = "/resources/genesis/keys/private/";
 	
-	public static final String GENESIS_BLOCKS_DIRECTORY = "/resources/genesis/";
+	
 	
 	
 	public static void createGenesis() throws Exception{
 		
-		String parent_hash = "NO PARENT FOR GENESIS"; 
+		int block_id = Properties.getNumberOfGenesisBlock()+1;
+		System.out.println("block id:"+block_id);
+		String parent_hash;
+		if(block_id==1){
+			parent_hash = "NO PARENT FOR GENESIS";
+		}
+		else{
+			parent_hash = BlockOperations.getBlock(-(block_id-1)).getBlockHash();
+		}
+		 
+
+		//creates a directory for keys in the block
+		FileOperations.createADirectory(PUBLIC_KEYS_DIRECTORY+block_id);
+		FileOperations.createADirectory(PRIVATE_KEYS_DIRECTORY+block_id);
 		
-		for(int b=1;b<=NUMBER_OF_BLOCKS;++b){
+		//array of transaction in a block
+		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+		
+		//for converting the block
+		Gson gson = new Gson();
+		
+		//in each block,new users are created and added to the sytem
+		for(int j=0;j<NUMBER_OF_USER_PER_BLOCK;++j){
+
+			//key of new user
+			StringsKeyPair keyPair = Generator.createKeys();
+			
+			//new keys are stored
+			FileOperations.writeFile(PUBLIC_KEYS_DIRECTORY+block_id+"/"+j, keyPair.getPublicKey());				
+			FileOperations.writeFile(PRIVATE_KEYS_DIRECTORY+block_id+"/"+j, keyPair.getPrivateKey());						
 			
 			
-			ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+			//new transaction for a user
+			Transaction transaction = new Transaction();
 			
-			Gson gson = new Gson();
+			//outputs array of the transaction
+			ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
 			
-			for(int i=0;i<NUMBER_OF_USER_PER_BLOCK;++i){
-				//System.out.println(i);
-				StringsKeyPair keyPair = Generator.createKeys();
+			
+			for(int k=0;k<NUMBER_OF_COINS_PER_BLOCK/(NUMBER_OF_USER_PER_BLOCK*NUMBER_OF_COINS_PER_OUTPUT);++k){
 				
-				FileOperations.writeFile(PUBLIC_KEYS_DIRECTORY+b+"/"+i, keyPair.getPublicKey());
-				FileOperations.writeFile(PRIVATE_KEYS_DIRECTORY+b+"/"+i, keyPair.getPrivateKey());
+				//creates an putput
+				TransactionOutput output = new TransactionOutput();
 				
-				Transaction transaction = new Transaction();
+				output.setAmount(NUMBER_OF_COINS_PER_OUTPUT);
+				output.setReceiverPublicKey(keyPair.getPublicKey());
 				
-				ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
+				//added to the array
+				outputs.add(output);
 				
-				for(int k=0;k<NUMBER_OF_COINS_PER_BLOCK/(NUMBER_OF_USER_PER_BLOCK*NUMBER_OF_COINS_PER_OUTPUT);++k){
-					TransactionOutput output = new TransactionOutput();
-					output.setAmount(NUMBER_OF_COINS_PER_OUTPUT);
-					output.setReceiverPublicKey(keyPair.getPublicKey());
-					
-					outputs.add(output);
-				}
-				
-				
-				TransactionContent content = new TransactionContent();
-				content.setInputs(null);
-				content.setOutputs(outputs);
-				content.setTransationDate(DateOperations.getCurrentDate());			
-				
-				transaction.setContent(content);
-				transaction.setSign(Generator.sign(gson.toJson(content)));
-				transaction.setSenderPublicKey(keyPair.getPublicKey());
-				
-				transactions.add(transaction);	
 			}
 			
+			//creates a transaction content
+			TransactionContent content = new TransactionContent();
 			
-
+			//inputs are empty since it is genesis.
+			content.setInputs(null);
 			
-			Block genesis = BlockOperations.mine(-b, transactions,parent_hash,Properties.TARGET);
+			content.setOutputs(outputs);
+			content.setTransationDate(DateOperations.getCurrentDate());			
 			
-			String genesisFile = gson.toJson(genesis);
+			transaction.setContent(content);
+			transaction.setSign(Generator.sign(gson.toJson(content)));
+			transaction.setSenderPublicKey(keyPair.getPublicKey());
 			
-			FileOperations.writeFile(GENESIS_BLOCKS_DIRECTORY+"-"+b+".txt",genesisFile);
-			
-			parent_hash = genesis.getBlockHash();
-			
+			transactions.add(transaction);	
 		}
 		
+		
+
+		
+		Block genesis = BlockOperations.mine(-block_id, transactions,parent_hash,Properties.TARGET);
+		
+		String genesisFile = gson.toJson(genesis);
+		
+		FileOperations.writeFile(GENESIS_DIRECTORY+"-"+block_id+".txt",genesisFile);
+		BlockOperations.writeBlock(genesis);
+		
+		Properties.setNumberOfGenesisBlock(block_id);		
 				
 	}
 	
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception{	
+		
 		createGenesis();
+		
 	}
 	
 	

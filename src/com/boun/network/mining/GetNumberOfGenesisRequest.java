@@ -20,7 +20,7 @@ public class GetNumberOfGenesisRequest extends Request {
 
 	@Override
 	public String handleRequest() {
-		return ""+Properties.NUMBER_OF_GENESIS_BLOCK;
+		return ""+Properties.getNumberOfGenesisBlock();
 	}
 
 }

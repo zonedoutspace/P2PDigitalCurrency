@@ -1,7 +1,6 @@
 package com.boun.hashes;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import com.boun.signature.Base58;
 

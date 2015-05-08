@@ -7,11 +7,24 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.boun.server.CreateGenesis;
+import com.boun.server.Properties;
+import com.boun.signature.Generator;
+
 
 public class FileOperations {
 
+	public static void setup() throws Exception{
+		
+		
+		createDirectories();
+		Generator.createMyKeys();
+		
+	}
+	
 	public static void writeFile(String fileName,String content) throws IOException {
 		
+		System.out.println(System.getProperty("user.dir")+fileName+"  will be written.");
 		File file = new File(System.getProperty("user.dir")+fileName);
 		
 		if (!file.exists()) {
@@ -24,9 +37,8 @@ public class FileOperations {
 		bw.close();
 	}
 	
-	
 	public static String readFile(String fileName) throws IOException {
-		
+		System.out.println("read:"+System.getProperty("user.dir")+fileName);
 		File file = new File(System.getProperty("user.dir")+fileName);
 		
 		if (!file.exists()) {
@@ -48,6 +60,38 @@ public class FileOperations {
 		
 		
 	}
+
+	public static void createDirectories(){
+		
+		createADirectory("/resources");
+		
+		createADirectory(CreateGenesis.GENESIS_DIRECTORY)
+		;
+		createADirectory(CreateGenesis.GENESIS_KEYS_DIRECTORY);
+		
+		createADirectory(CreateGenesis.PUBLIC_KEYS_DIRECTORY);
+		
+		createADirectory(CreateGenesis.PRIVATE_KEYS_DIRECTORY);
+		
+		createADirectory("/resources/chain");
+		
+		createADirectory("/resources/keys");
+		
+		
+		createADirectory("/resources/properties");
+		
+		
+		
+	} 
 	
-	
+	public static void createADirectory(String dir){
+		
+		File directory = new File(System.getProperty("user.dir")+dir);
+		
+		if(!directory.exists()){
+			directory.mkdir();
+			System.out.println(dir+"  is created");
+		}
+		
+	}
 }

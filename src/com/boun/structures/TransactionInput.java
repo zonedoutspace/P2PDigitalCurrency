@@ -9,9 +9,11 @@ public class TransactionInput {
 	/**the variable names are short
 	 * since I want to make the json objects shorter**/
 	
-	//the blockNumber of the unexpended money
+	//the blockNumber of the unspent money
 	private int b;
-	//the order of the unexpended money in the previous transaction
+	//the order of transaction in the block
+	private int t;
+	//the order of output in the transaction
 	private int o;
 	//the amount of the money
 	private int a;
@@ -25,6 +27,14 @@ public class TransactionInput {
 		this.b = blockNumber;
 	}
 
+	public int getTransactionOrder() {
+		return t;
+	}
+	
+	public void setTransactionOrder(int outputOrder) {
+		this.t = outputOrder;
+	}
+	
 	public int getOutputOrder() {
 		return o;
 	}
