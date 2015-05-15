@@ -10,6 +10,20 @@ public class Base58 {
 
 	private static final String ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
     private static final BigInteger BASE = BigInteger.valueOf(58);
+    
+    public static boolean checkEncoding(String s){
+    	
+    	for(int i=0;i<s.length();++i){
+    		
+    		if(!ALPHABET.contains(s.charAt(i)+"")){
+    			return false;
+    		}
+    		
+    	}
+    	
+    	return true;
+    	
+    }
 
     public static String encode(byte[] input) {
        

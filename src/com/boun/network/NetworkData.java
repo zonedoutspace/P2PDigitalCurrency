@@ -11,7 +11,7 @@ public class NetworkData {
 	public static final int APP_PORT = 9001;
 	
 	//The server ip of the network
-	public static final String SERVER_IP = "104.131.24.193";
+	public static final String SERVER_IP = "104.43.253.52";
 	
 	//the ip list of the peers
 	private static HashSet<String> peersAddresses = new HashSet<String>();	

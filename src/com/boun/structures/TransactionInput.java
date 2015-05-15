@@ -31,8 +31,8 @@ public class TransactionInput {
 		return t;
 	}
 	
-	public void setTransactionOrder(int outputOrder) {
-		this.t = outputOrder;
+	public void setTransactionOrder(int tranactionOrder) {
+		this.t = tranactionOrder;
 	}
 	
 	public int getOutputOrder() {

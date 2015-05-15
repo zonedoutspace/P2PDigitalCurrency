@@ -1,5 +1,7 @@
 package com.boun.structures;
 
+import com.google.gson.Gson;
+
 public class Transaction {
 	
 	/**the variable names are short
@@ -38,6 +40,18 @@ public class Transaction {
 
 	public void setContent(TransactionContent content) {
 		this.c = content;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Gson gson = new Gson();		
+		return gson.toJson(this).equals(gson.toJson(obj));
+	}
+	
+	@Override
+	public int hashCode() {
+		Gson gson = new Gson();
+		return gson.toJson(this).hashCode();
 	}
 	
 }

@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.boun.server.CreateGenesis;
-import com.boun.server.Properties;
 import com.boun.signature.Generator;
 
 

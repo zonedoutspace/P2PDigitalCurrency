@@ -7,6 +7,9 @@ import com.boun.file.FileOperations;
 public class Properties {
 	
 	public static final String NUMBER_OF_GENESIS = "/resources/properties/number_of_genesis.txt";
+	public static final String NUMBER_OF_DOWNLOADED_GENESIS = "/resources/properties/number_of__downloaded_genesis.txt";
+	
+	public static final String TARGET = "13zRNNVkhkBQf4a9zxivKWjbirJKv7BRdfnW6Cj7";
 	
 	public static int getNumberOfGenesisBlock(){
 		
@@ -29,7 +32,30 @@ public class Properties {
 		FileOperations.writeFile(NUMBER_OF_GENESIS, ""+number);
 	}
 	
-	public static final String TARGET = "13zRNNVkhkBQf4a9zxivKWjbirJKv7BRdfnW6Cj7";
+	public static int getNumberOfDownloadedGenesisBlock(){
+		
+		String s;
+		try {
+			s = FileOperations.readFile(NUMBER_OF_DOWNLOADED_GENESIS);
+			return Integer.valueOf(s);
+		} catch (Exception e) {
+			try {
+				FileOperations.writeFile(NUMBER_OF_DOWNLOADED_GENESIS, "0");
+			} catch (IOException e1) {
+				return 0;
+			}
+			return 0;			
+		}
+	}
+	
+	public static void setNumberOfDownloadedGenesisBlock(int number) throws Exception{
+		
+		FileOperations.writeFile(NUMBER_OF_DOWNLOADED_GENESIS, ""+number);
+	}
+	
+	
+	
+	
 	
 	
 }

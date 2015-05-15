@@ -6,17 +6,24 @@ import com.boun.network.RequestSender;
 import com.boun.network.mining.GetNumberOfGenesisRequest;
 import com.boun.operations.BlockOperations;
 import com.boun.operations.PeerOperation;
+import com.boun.server.Properties;
 
 public class Client {
 
-	public static void main(String[] args) {
-		
-		
-		
-		
-		/*
+	public static void main(String[] args) {	
 		
 		System.out.println("Welcome");	
+		
+		System.out.println("File and directories are being created.");
+		try {
+			FileOperations.setup();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Setup Error");
+			System.exit(1);
+		}
+		
+		
 		
 		System.out.println("IP address is being sent...");
 		try {
@@ -26,6 +33,8 @@ public class Client {
 			System.out.println("ERROR: Ip adress cannot be sent.");
 			System.exit(1);
 		}
+		
+		
 		
 		System.out.println("Downloading peers' ip addresses...");
 		
@@ -37,12 +46,15 @@ public class Client {
 			System.exit(1);
 		}
 		
+		
+		
 		System.out.println("Getting the number of genesis block...");
 			
 		GetNumberOfGenesisRequest genesisRequest = new GetNumberOfGenesisRequest();
 		try {
 			String result = RequestSender.send(genesisRequest, NetworkData.SERVER_IP);
-			BlockOperations.setNumberOfGenesis(Integer.valueOf(result));
+			Properties.setNumberOfGenesisBlock(Integer.valueOf(result));
+			System.out.println("number of genesis"+result);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("ERROR: The number of genesis block cannot be downloaded.");
@@ -59,10 +71,8 @@ public class Client {
 			System.exit(1);
 		}
 		
+		
 		System.out.println("Sending ip to other peers");
-		
-		
-		*/
 		
 	}
 

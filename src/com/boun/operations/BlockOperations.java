@@ -1,6 +1,6 @@
 package com.boun.operations;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,6 +9,7 @@ import com.boun.hashes.HashOperations;
 import com.boun.network.NetworkData;
 import com.boun.network.RequestSender;
 import com.boun.network.mining.GetGenesisBlockRequest;
+import com.boun.server.Properties;
 import com.boun.signature.Generator;
 import com.boun.structures.Block;
 import com.boun.structures.BlockContent;
@@ -20,9 +21,6 @@ public class BlockOperations {
 	
 	//the directory of block chain
 	public static final String BLOCK_CHAIN_DIRECTORY = "/resources/chain/";
-	
-	public static int numberOfGenesis;
-	
 	
 	/**
 	 * gets a block from harddisk
@@ -49,21 +47,10 @@ public class BlockOperations {
 		System.out.println(blockDirectory);
 		FileOperations.writeFile(blockDirectory, jSon);
 	}
-		
 
-
-	public static int getNumberOfGenesis() {
-		return numberOfGenesis;
-	}
-	
-
-	public static void setNumberOfGenesis(int numberOfGenesis) {
-		BlockOperations.numberOfGenesis = numberOfGenesis;
-	}
-	
 	public static void downloadGenesisBlocks() throws Exception{
 		
-		for(int i=1;i<=numberOfGenesis;++i){
+		for(int i=Properties.getNumberOfDownloadedGenesisBlock()+1;i<=Properties.getNumberOfGenesisBlock();++i){
 			GetGenesisBlockRequest request = new GetGenesisBlockRequest();
 			request.setBlockId(-i);
 			
@@ -73,6 +60,7 @@ public class BlockOperations {
 			Block block = gson.fromJson(blockJson,Block.class);
 			
 			BlockOperations.writeBlock(block);
+			Properties.setNumberOfDownloadedGenesisBlock(i);
 			
 		}
 		
