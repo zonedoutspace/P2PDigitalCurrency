@@ -51,4 +51,25 @@ public class TransactionInput {
 		this.a = amount;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		
+		TransactionInput other = (TransactionInput) obj;
+		
+		if(this.getBlockNumber()!=other.getBlockNumber()){
+			return false;
+		}
+		
+		if(this.getTransactionOrder()!=other.getTransactionOrder()){
+			return false;
+		}
+		
+		if(this.getOutputOrder()!=other.getOutputOrder()){
+			return false;
+		}
+
+		
+		return true;
+	}
+	
 }

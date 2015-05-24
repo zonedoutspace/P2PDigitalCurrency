@@ -25,9 +25,23 @@ public class NetworkData {
 	
 	/**
 	 * adds multiple peers' IP addresses to the memory
+	 * @throws Exception 
 	 * */
-	public static void AddPeerSet(HashSet<String> peers){
-		peersAddresses.addAll(peers);
+	public static void AddPeerSet(HashSet<String> peers) throws Exception{
+		
+		String[] peerList = peers.toArray(new String[peers.size()]);
+		
+		String myIp = NetworkData.getMyIp();
+		
+		for(int i=0;i<peerList.length;++i){
+			
+			if(!peerList[i].equals(myIp))
+				peersAddresses.add(peerList[i]);
+		
+		}
+		
+		
+		
 	}
 
 	
@@ -42,6 +56,14 @@ public class NetworkData {
 		return in.readLine();
 		
 	}
+	
+	public static String[] getPeersAsList(){
+		
+		String[] peerList = peersAddresses.toArray(new String[peersAddresses.size()]);
+		return peerList;
+		
+	}
+	
 	
 	/**
 	 * creates peer lists as PeerList class

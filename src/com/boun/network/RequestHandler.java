@@ -5,9 +5,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import com.boun.network.mining.GetGenesisBlockRequest;
-import com.boun.network.mining.GetNumberOfGenesisRequest;
-import com.boun.network.mining.GetTargetRequest;
+import com.boun.network.forwards.BlockForwardRequest;
+import com.boun.network.forwards.TransactionForwardRequest;
+import com.boun.network.gets.GetBlockRequest;
+import com.boun.network.gets.GetGenesisBlockRequest;
+import com.boun.network.gets.GetNumberOfBlockRequest;
+import com.boun.network.gets.GetNumberOfGenesisRequest;
+import com.boun.network.gets.GetTargetRequest;
 import com.boun.network.peers.GetPeersRequest;
 import com.boun.network.peers.NewPeerEchoRequest;
 import com.google.gson.Gson;
@@ -116,6 +120,24 @@ public class RequestHandler extends Thread {
 			case GetGenesisBlockRequest.REQUEST_CODE:
 				GetGenesisBlockRequest getGenesisBlockRequest = (GetGenesisBlockRequest) gson.fromJson(request.getRequestData(), GetGenesisBlockRequest.class);
 				return getGenesisBlockRequest.handleRequest();
+			
+			case TransactionForwardRequest.REQUEST_CODE:
+				TransactionForwardRequest transactionForwardRequest = (TransactionForwardRequest) gson.fromJson(request.getRequestData(), TransactionForwardRequest.class);
+				return transactionForwardRequest.handleRequest();
+			
+			case GetNumberOfBlockRequest.REQUEST_CODE:
+				GetNumberOfBlockRequest getNumberOfBlockRequest = (GetNumberOfBlockRequest) gson.fromJson(request.getRequestData(), GetNumberOfBlockRequest.class);
+				return getNumberOfBlockRequest.handleRequest();
+			
+			case GetBlockRequest.REQUEST_CODE:
+				GetBlockRequest getBlockRequest = (GetBlockRequest) gson.fromJson(request.getRequestData(), GetBlockRequest.class);
+				return getBlockRequest.handleRequest();
+				
+			case BlockForwardRequest.REQUEST_CODE:
+				BlockForwardRequest blockForwardRequest = (BlockForwardRequest) gson.fromJson(request.getRequestData(), BlockForwardRequest.class);
+				return blockForwardRequest.handleRequest();
+			
+			
 		}
 		
 		return null;

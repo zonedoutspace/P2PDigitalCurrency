@@ -96,6 +96,16 @@ public class Generator {
 
 	}
 
+	public static PrivateKey getPrivateKey(String privateKeyString) throws Exception{
+
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+		KeySpec privateKeySpec = new PKCS8EncodedKeySpec(Base58.decode(privateKeyString));
+		PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
+
+		return privateKey;
+
+	}
+	
 	public static String sign(String content) throws Exception{
 
 		Signature sig = Signature.getInstance("MD5WithRSA");
@@ -105,6 +115,17 @@ public class Generator {
 		return Base58.encode(signatureBytes);
 	}
 
+	
+	public static String sign(PrivateKey key,String content) throws Exception{
+
+		Signature sig = Signature.getInstance("MD5WithRSA");
+		sig.initSign(key);
+		sig.update(content.getBytes());
+		byte[] signatureBytes = sig.sign();
+		return Base58.encode(signatureBytes);
+	}
+	
+	
 	public static boolean checkSign(String content,String sign,PublicKey publicKey) throws Exception{
 
 		Signature sig = Signature.getInstance("MD5WithRSA");

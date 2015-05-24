@@ -5,12 +5,16 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import com.boun.operations.BlockOperations;
-import com.boun.server.Properties;
+import com.boun.structures.Block;
 import com.boun.structures.Transaction;
 
 public class Miner extends Thread{
 
-	public ArrayList<Transaction> transactions;
+	ArrayList<Transaction> transactions;
+	int blockId;
+	String parentHash;
+	String target;
+	MinerResultListener listener;
 	
 	public Miner(HashSet<Transaction> transactions) {
 		super();
@@ -21,11 +25,36 @@ public class Miner extends Thread{
 	public void run() {
 		
 		try {
-			BlockOperations.mine(1, transactions, "NO HASH FOR BLOCK 1", Properties.TARGET);
+			Block block = BlockOperations.mine(blockId, transactions, parentHash, target);
+			listener.getResult(block);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			listener.getResult(null);
 		}
 		
 	}
+
+	public void setTransactions(ArrayList<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+
+	public void setBlockId(int blockId) {
+		this.blockId = blockId;
+	}
+
+	public void setParentHash(String parentHash) {
+		this.parentHash = parentHash;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
+
+	public void setListener(MinerResultListener listener) {
+		this.listener = listener;
+	}
+	
+	
+	
 }

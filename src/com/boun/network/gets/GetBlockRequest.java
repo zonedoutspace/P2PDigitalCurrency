@@ -1,18 +1,17 @@
-package com.boun.network.mining;
+package com.boun.network.gets;
 
 import java.io.IOException;
 
-import com.boun.file.FileOperations;
 import com.boun.network.Request;
-import com.boun.server.CreateGenesis;
+import com.boun.operations.BlockOperations;
+import com.boun.structures.Block;
+import com.google.gson.Gson;
 
-public class GetGenesisBlockRequest extends Request{
-	
-	public static final int REQUEST_CODE = 5;
+public class GetBlockRequest extends Request{
+
+	public static final int REQUEST_CODE = 8;
 	
 	public int blockId;
-	
-	
 
 	public int getBlockId() {
 		return blockId;
@@ -21,10 +20,14 @@ public class GetGenesisBlockRequest extends Request{
 	public void setBlockId(int blockId) {
 		this.blockId = blockId;
 	}
+	
+	
 
 	@Override
 	public int getRequestCode() {
+		
 		return REQUEST_CODE;
+		
 	}
 
 	@Override
@@ -35,13 +38,19 @@ public class GetGenesisBlockRequest extends Request{
 
 	@Override
 	public String handleRequest() {
+		
 		try {
-			return FileOperations.readFile(CreateGenesis.GENESIS_DIRECTORY+blockId+".txt");
+			Gson gson = new Gson();
+			Block block = BlockOperations.getBlock(blockId);
+			return gson.toJson(block);				
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
+		
 	}
-
+	
+	
 }
+

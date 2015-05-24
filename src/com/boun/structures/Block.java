@@ -1,5 +1,7 @@
 package com.boun.structures;
 
+import com.google.gson.Gson;
+
 
 public class Block {
 	
@@ -19,5 +21,15 @@ public class Block {
 		this.blockHash = blockHash;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		
+		Block other = (Block) obj;
+		
+		Gson gson = new Gson();
+		
+		return gson.toJson(this).equals(gson.toJson(other));
+		
+	}
 	
 }

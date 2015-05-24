@@ -1,4 +1,4 @@
-package com.boun.network.mining;
+package com.boun.network.gets;
 
 import com.boun.network.Request;
 import com.boun.server.Properties;

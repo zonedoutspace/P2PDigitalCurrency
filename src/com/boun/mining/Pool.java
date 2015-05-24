@@ -2,6 +2,7 @@ package com.boun.mining;
 
 import java.util.HashSet;
 
+import com.boun.operations.TransactionOperations;
 import com.boun.structures.Transaction;
 
 public class Pool {
@@ -12,18 +13,56 @@ public class Pool {
 	
 	Miner miner;
 	
-	
-	
-	
-	public static void addTransaction(Transaction transaction){
-		verifiedTransactions.add(transaction);
+	public static String addTransaction(Transaction transaction){
 		
-		if(verifiedTransactions.size()==MINING_THRESHOLD){
+
+		try {
 			
-			Miner miner = new Miner(verifiedTransactions);
-			miner.start();
+			boolean isContain = verifiedTransactions.contains(transaction);
 			
+			if(isContain){
+				return "It already exists.";
+			}
+		
+			
+			String result = TransactionOperations.checkTransaction(transaction);
+			
+			
+			if(result!=null){
+				return result;
+			}
+			else{
+				verifiedTransactions.add(transaction);
+				return null;
+			}
+			
+			
+			
+
+			
+			
+			
+			/*
+			if(verifiedTransactions.size()==MINING_THRESHOLD){
+				
+				Miner miner = new Miner(verifiedTransactions);
+				miner.start();
+				
+			}
+			*/
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			return "Transaction check error";
 		}
+		
+
+		
+		
+
 	}
 	
 	

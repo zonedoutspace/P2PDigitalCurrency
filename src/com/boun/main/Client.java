@@ -2,15 +2,21 @@ package com.boun.main;
 
 import com.boun.file.FileOperations;
 import com.boun.network.NetworkData;
+import com.boun.network.NetworkListener;
 import com.boun.network.RequestSender;
-import com.boun.network.mining.GetNumberOfGenesisRequest;
+import com.boun.network.gets.GetNumberOfGenesisRequest;
 import com.boun.operations.BlockOperations;
 import com.boun.operations.PeerOperation;
 import com.boun.server.Properties;
 
 public class Client {
 
+	public static NetworkListener listener;
+	
+	
 	public static void main(String[] args) {	
+		
+		
 		
 		System.out.println("Welcome");	
 		
@@ -22,31 +28,7 @@ public class Client {
 			System.out.println("Setup Error");
 			System.exit(1);
 		}
-		
-		
-		
-		System.out.println("IP address is being sent...");
-		try {
-			PeerOperation.sendIpToServer();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("ERROR: Ip adress cannot be sent.");
-			System.exit(1);
-		}
-		
-		
-		
-		System.out.println("Downloading peers' ip addresses...");
-		
-		try {
-			PeerOperation.getAllPeersFromServer();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("ERROR: Peer address cannot be downloaded.");
-			System.exit(1);
-		}
-		
-		
+				
 		
 		System.out.println("Getting the number of genesis block...");
 			
@@ -70,9 +52,60 @@ public class Client {
 			System.out.println("ERROR: Genesis blocks cannot be downloaded.");
 			System.exit(1);
 		}
+
+		
+		System.out.println("Downloading peers' ip addresses...");
+		
+		try {
+			PeerOperation.getAllPeersFromServer();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ERROR: Peer address cannot be downloaded.");
+			System.exit(1);
+		}
+		
+		
+		System.out.println("Blocks are being downloaded");		
+	
+		try{
+			BlockOperations.getBlockNumberFromPeers();
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ERROR: Number of blocks cannot be downloaded.");
+			System.exit(1);
+		}
+		
+		
+		//indir onları
+	
+		
+		
+
+
+		System.out.println("Network Listener is starting.");
+		
+		listener = new NetworkListener();
+		listener.start();
+		
+		System.out.println("Network is listening.");
+		
+		
+		
+		System.out.println("IP address is being sent to server...");
+		try {
+			PeerOperation.sendIpToServer();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ERROR: Ip adress cannot be sent.");
+			System.exit(1);
+		}
+		
 		
 		
 		System.out.println("Sending ip to other peers");
+		PeerOperation.sendIpToPeers();
+		
+		
 		
 	}
 
