@@ -28,9 +28,12 @@ public class TransactionForwardRequest extends Request{
 
 	@Override
 	public String handleRequest() {
+		System.out.println("handleRequest@TransactionForwardRequest");
+		
 		try {
 			String s =  Pool.addTransaction(transaction);
 			if(s!=null){
+				System.out.println("transaction forward result:"+s);
 				return s;
 			}
 			else{
@@ -39,7 +42,7 @@ public class TransactionForwardRequest extends Request{
 						new TransactionForwardThread(transaction, senderIp);
 				
 				thread.start();
-				
+				System.out.println("transaction forward result:"+"Transaction is added.");
 				return "Transaction is added.";
 			}
 		} catch (Exception e) {

@@ -3,6 +3,7 @@ package com.boun.mining;
 import java.util.ArrayList;
 
 import com.boun.operations.BlockOperations;
+import com.boun.operations.TransactionOperations;
 import com.boun.server.Properties;
 import com.boun.signature.Generator;
 import com.boun.structures.Block;
@@ -46,12 +47,12 @@ public class ChainInitializer {
 		//block -1, transaction 5
 		TransactionOutput output = new TransactionOutput();
 		output.setAmount(50);
-		output.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgMW2xEB3LTViNVRiNZNuG3GnYt3ZBFz5SmhQLSh6rJ1LZYaW1VPXVYDpaAywwUJtPKnbtqBfgndtyCSpJTrsKzHy78qzrs2");
+		output.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgP8mkfvjaHbuUEXEQYY33GsD6BXfQDPEEFzd5hv1ktKmUgFXEDmcSWDJrdkZYscc3nWwohMKncVf4MAzoGyH3QCahmmExRE");
 		
 		//block -1, transaction 10
 		TransactionOutput output1 = new TransactionOutput();
 		output1.setAmount(150);
-		output1.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgQ1uwHQHtJNnJmXbLdiu1HtjYYvJVjaFyr4uyAUXWfrovu4V1r8ruzK195dybFiJr6N7Rk8PH7bqt8pEyWnwfX29tTSyHLc");
+		output1.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgotQeCDqLHxfBCFV37Sdxu3KcKCtgmAWAbvvA5ZCehvBpag8WtJhejSfKgzGHhc86WfKprgJ2PM39QcWpJCq9Avt6EEMUiU");
 		
 		
 		ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
@@ -66,8 +67,8 @@ public class ChainInitializer {
 		
 		
 		transaction.setContent(content);
-		transaction.setSenderPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgdXsuq51dYuFj8Agfd2DXtJBajv4X7b8dsDUcLs7oDFWQBEcfYjvxYegL6Lhm8wS4G6CLyBvRKEkM8PPpdV8B729SnfwhF6");
-		transaction.setSign(Generator.sign(Generator.getPrivateKey("23g8Q4bQCNC9fo3NhW2KdUsBUqKZp1exZTmQob7mRM4uyva4cV1UTB3HgZTg71DiS6w2wcsmaoL1k7hScTVg6rjrhtbh3S723XxWQK7NMfFrjC2n8of34dPTfHrfYoV3y1MosA3Cy5F5UC1Ve1QuiFvAFdkkmgeUREnWBRMgCRFHFrFRrRDfuX3D1PDeRpVKEfofm56xcfQBAyXHzmwZt2SoACp7ojmXhVvLD1WC8cnRvY54Snko5HbnZcGaPS789h7zLQ2bhHg4kTwmksmNgpzhX2hHZJkkrVZEkhG8usZyXpGymDV2a19TPoAuMh4S8mVuUz2aCXj91ALZjneNbWcUx4LKhySKPjK9sfrCdisvqnCpoKzwFHXWF9YTNTwLzJhQAKfhVYm5wkK3THRaAY1mo9vWFCchihE2FcsNYHSfdVKHxRgNe6WiuFyZHaBRJyi6gSwGUpWC9y7uYJ7it"), gson.toJson(content)));
+		transaction.setSenderPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgZQuQfo1yj5JzjBFCJsURMrFuCKiwr3S2Z6gwvGuAD2yTxoRHX3K9dB7mboVLppWWMqQB1kPVj9onAxJmiFYzjKi86keuDa");
+		transaction.setSign(Generator.sign(Generator.getPrivateKey("23g8Q4bQCNC9fo3NhW2KdUsBUqKZp1exZTmQob7mRM4uyva4cUvt9zvD7CScwdRWA4FrUtgEgWdUrYAKbRR7dyZT577m3Rqd2FnVwH83hEDWacSLuqYDwCy5Vo51iSkMdMF2bmHwWoxuR9km92GvUwJNyZndisEP4XcvVXeEfyLSkVGzM37fHk6pftmDS3Scuq5rtxfZishNuqp5DjbfvjKhbimfdHFgBNNMoeWcAcLRv2AYZMmxdNWv4wdbn1RHSRco5i7tetAcGZLSxMb62WnnxVsaqyGc2r2GaGyRKzBeqYW5hpceZUNVFHWB3Uxsj1ddHtz2BfgRw5nsrkphmNiAAKCDEvJU55mt5EAEtQw1xqJUV6RxhTjQfMo3sbkjECbkz3GvM1ABW3JvGrrSRkovmYthgr2Tn4g4kK9maVvvfmPt3CNuDr6LMQ3AYu3GaocXp5NtkwVdQmR8sbxh3"), gson.toJson(content)));
 		
 		/////////////////////////////////////////////////////////////////////////////
 		
@@ -99,12 +100,12 @@ public class ChainInitializer {
 		//block -2, transaction 5
 		TransactionOutput output3 = new TransactionOutput();
 		output3.setAmount(50);
-		output3.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgapsLyHgoM1Uq8EbwbNX1RGxZdXJXu7LDSzM17Z8yUp7GpiYbDPa1FuGZL97nd2vLSoh2ZbxfdLpWaiv3xSRvHLsgapYZiG");
+		output3.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgyEDBgKGdkR6D6WzqH4Pn4ELGBLRUTbpjysQcx92Y2PWdZbjrh4LPSypTb1BtipiEbAPRFiyWUDniQfdLMSCcAWfnwMJMKv");
 		
 		//block -1, transaction 10
 		TransactionOutput output4 = new TransactionOutput();
 		output4.setAmount(150);
-		output4.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgQ1uwHQHtJNnJmXbLdiu1HtjYYvJVjaFyr4uyAUXWfrovu4V1r8ruzK195dybFiJr6N7Rk8PH7bqt8pEyWnwfX29tTSyHLc");
+		output4.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgotQeCDqLHxfBCFV37Sdxu3KcKCtgmAWAbvvA5ZCehvBpag8WtJhejSfKgzGHhc86WfKprgJ2PM39QcWpJCq9Avt6EEMUiU");
 		
 		
 		ArrayList<TransactionOutput> outputs2 = new ArrayList<TransactionOutput>();
@@ -118,14 +119,20 @@ public class ChainInitializer {
 		
 		
 		transaction1.setContent(content1);
-		transaction1.setSenderPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KhAuAQRRuJb4mAoRY3KGgQdEUTWidWkUSSCMFkDrocR9nxevarqadZ5KDXKDEuXCZj3QGJveDAbdoHgDexMryVDijkLJrRFW");
-		transaction1.setSign(Generator.sign(Generator.getPrivateKey("5coherapciktyxkAaprrWi5a182qUGRfubQ1eT5ZxhscbrKP8RbKXRZYeGXg9hox98NTHC4ExcZUnMPR3jsgiksLbdV7YD9mEx1Fm7vKS9Der7zzReuWpm6qcTQZ4zjQCHHEk59kFdEpWcc65DHEGoyiz8YPt2rLM58PzVB89GFtuf8j4DopC5NTDD5YFF77dfhS4QQzbsC8C5nGX262KZFba4PUxp1QNaWRRtxV4Euxfs7N3ZqKhknZKN9EeG5k7ym2qLsW34nsYPMtEtCKDJGpW3hiAa6iw2ozsULmbWLA2WHPywyeEeDcKgCHqTSwaFd3PwwQrHBATAnAXDt1Ydn6DM1mzaQEMrqKK9w9BwLgeydJkMAuFfV8AQzVWiuj8W9DByfxP1MTtSN5J3jVvxgVb2njWWsnoNndcL1utC15kPocY4ecVyVGGLpR1MbWP47WQVYf9bsTY5dPpjfUJn"), gson.toJson(content1)));
+		transaction1.setSenderPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgtQDnGTXxidzvH4pPtVzsVVfByUbqyvot2Ypcjt1wSuiA7sGWTLNh2GSqHTZSmAjYA5uWYZKQMbgUX5xsrVs19x8NE2bfiY");
+		transaction1.setSign(Generator.sign(Generator.getPrivateKey("23g8Q4bQCNC9fo3NhW2KdUsBUqKZp1exZTmQob7mRM4uyva4cVJ3PMp4V87rRjFSNtZCMdETaiRAn7PMam8iKoQnf24KghCc7Zd2cqduV58EpHoVmekWksDGAESgp7eBsPJMxejTZoDZeVidnwkCdadGp5ShjseXwkDpk5vHBEi2ByokrxcMLcZasnAdQRf2nAdvPH1GJjFAsoToStDAPq1hhpgyJAgVryxv3eviZYeMLby3fUHh8CvW7mkEjmkCyP45Pj4KyrS9TvGMgoBbpzpDPKyXGk6UHmUqXJwde3NCz2At1WYaGFdWWxf4cjWtWid3K2fkJMtsDuSVr4PQQa6qScr86duCinXp6tnZ3azrLwpun9eLQWCVXGKSZ3MPvC3xmXkQR2piTHMf5XDowJUpzWkP6xSDnar1dmnMj4fWRrFUSJnShgKRvgW4D5AbeLZW5oB4HxyR4ehU1VLb8"), gson.toJson(content1)));
 		
 		
 		/////////////////////////////////////////////////////////////////////////////
+		
+		
 		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 		transactions.add(transaction);
 		transactions.add(transaction1);
+		
+		System.out.println("1:"+TransactionOperations.checkTransaction(transaction));
+		System.out.println("2:"+TransactionOperations.checkTransaction(transaction1));
+		
 		
 		
 		Block block = BlockOperations.mine(1, transactions, "NO HASH FOR FIRST BLOCK",Properties.TARGET);
@@ -138,6 +145,9 @@ public class ChainInitializer {
 		
 		
 	}
+	
+	
+	
 	
 	
 }

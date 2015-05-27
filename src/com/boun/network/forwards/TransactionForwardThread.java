@@ -19,7 +19,7 @@ public class TransactionForwardThread extends Thread{
 	public void run() {
 		
 		
-		String[] peerList = (String[]) NetworkData.getPeerList().peerSet.toArray();
+		String[] peerList = NetworkData.getPeersAsList();
 		
 		for(int i=0;i<peerList.length;++i){
 			String peer = peerList[i];

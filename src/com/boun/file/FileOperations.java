@@ -17,7 +17,6 @@ public class FileOperations {
 		
 		
 		createDirectories();
-		Generator.createMyKeys();
 		
 	}
 	

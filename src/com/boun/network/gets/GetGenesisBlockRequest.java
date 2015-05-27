@@ -4,7 +4,10 @@ import java.io.IOException;
 
 import com.boun.file.FileOperations;
 import com.boun.network.Request;
+import com.boun.operations.BlockOperations;
 import com.boun.server.CreateGenesis;
+import com.boun.structures.Block;
+import com.google.gson.Gson;
 
 public class GetGenesisBlockRequest extends Request{
 	
@@ -36,7 +39,9 @@ public class GetGenesisBlockRequest extends Request{
 	@Override
 	public String handleRequest() {
 		try {
-			return FileOperations.readFile(CreateGenesis.GENESIS_DIRECTORY+blockId+".txt");
+			Block block = BlockOperations.getBlock(blockId);
+			Gson gson = new Gson();
+			return gson.toJson(block);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

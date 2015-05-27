@@ -28,7 +28,7 @@ public class Pool {
 			String result = TransactionOperations.checkTransaction(transaction);
 			
 			
-			if(result!=null){
+			if(!result.equals("Verified")){
 				return result;
 			}
 			else{

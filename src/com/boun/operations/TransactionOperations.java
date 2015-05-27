@@ -274,7 +274,8 @@ public class TransactionOperations {
 
 	public static void main(String[] args) throws Exception{
 
-
+		//block -1, transaction order 10
+		//use genesis and normal blocks together
 
 		Transaction transaction = new Transaction();
 
@@ -282,34 +283,40 @@ public class TransactionOperations {
 
 		TransactionInput input1 = new TransactionInput();
 		input1.setBlockNumber(-1);
-		input1.setTransactionOrder(3);
+		input1.setTransactionOrder(10);
 		input1.setOutputOrder(0);
 		input1.setAmount(100);
 
 
 		TransactionInput input2 = new TransactionInput();
-		input2.setBlockNumber(-1);
-		input2.setTransactionOrder(3);
+		input2.setBlockNumber(1);
+		input2.setTransactionOrder(0);
 		input2.setOutputOrder(1);
-		input2.setAmount(100);		
+		input2.setAmount(150);		
 
+		TransactionInput input3 = new TransactionInput();
+		input3.setBlockNumber(1);
+		input3.setTransactionOrder(1);
+		input3.setOutputOrder(1);
+		input3.setAmount(150);		
 
 
 		ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
 		inputs.add(input1);
 		inputs.add(input2);
+		inputs.add(input3);
 
 
 
 		//block -1, transaction 5
 		TransactionOutput output = new TransactionOutput();
-		output.setAmount(50);
+		output.setAmount(250);
 		output.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgMW2xEB3LTViNVRiNZNuG3GnYt3ZBFz5SmhQLSh6rJ1LZYaW1VPXVYDpaAywwUJtPKnbtqBfgndtyCSpJTrsKzHy78qzrs2");
 
-		//block -1, transaction 10
+		//block -1, transaction 3
 		TransactionOutput output1 = new TransactionOutput();
 		output1.setAmount(150);
-		output1.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgQ1uwHQHtJNnJmXbLdiu1HtjYYvJVjaFyr4uyAUXWfrovu4V1r8ruzK195dybFiJr6N7Rk8PH7bqt8pEyWnwfX29tTSyHLc");
+		output1.setReceiverPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgZQuQfo1yj5JzjBFCJsURMrFuCKiwr3S2Z6gwvGuAD2yTxoRHX3K9dB7mboVLppWWMqQB1kPVj9onAxJmiFYzjKi86keuDa");
 
 
 		ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
@@ -324,8 +331,8 @@ public class TransactionOperations {
 
 
 		transaction.setContent(content);
-		transaction.setSenderPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgdXsuq51dYuFj8Agfd2DXtJBajv4X7b8dsDUcLs7oDFWQBEcfYjvxYegL6Lhm8wS4G6CLyBvRKEkM8PPpdV8B729SnfwhF6");
-		transaction.setSign(Generator.sign(Generator.getPrivateKey("23g8Q4bQCNC9fo3NhW2KdUsBUqKZp1exZTmQob7mRM4uyva4cV1UTB3HgZTg71DiS6w2wcsmaoL1k7hScTVg6rjrhtbh3S723XxWQK7NMfFrjC2n8of34dPTfHrfYoV3y1MosA3Cy5F5UC1Ve1QuiFvAFdkkmgeUREnWBRMgCRFHFrFRrRDfuX3D1PDeRpVKEfofm56xcfQBAyXHzmwZt2SoACp7ojmXhVvLD1WC8cnRvY54Snko5HbnZcGaPS789h7zLQ2bhHg4kTwmksmNgpzhX2hHZJkkrVZEkhG8usZyXpGymDV2a19TPoAuMh4S8mVuUz2aCXj91ALZjneNbWcUx4LKhySKPjK9sfrCdisvqnCpoKzwFHXWF9YTNTwLzJhQAKfhVYm5wkK3THRaAY1mo9vWFCchihE2FcsNYHSfdVKHxRgNe6WiuFyZHaBRJyi6gSwGUpWC9y7uYJ7it"), gson.toJson(content)));
+		transaction.setSenderPublicKey("rbanryFCC6yJnCRCQgVWyYXvqkSBz4k8KgotQeCDqLHxfBCFV37Sdxu3KcKCtgmAWAbvvA5ZCehvBpag8WtJhejSfKgzGHhc86WfKprgJ2PM39QcWpJCq9Avt6EEMUiU");
+		transaction.setSign(Generator.sign(Generator.getPrivateKey("23g8Q4bQCNC9fo3NhW2KdUsBUqKZp1exZTmQob7mRM4uyva4cVD1e6vb4x2EwnNuJjoyhXeBXBMKbA1RcCXRhyR21e5vCfnxX7srue6haW9YaNg2Lbc2qp1upTG6zuaz4rJA6ypksG5dRzbCtdUsL14G8CjH7Wt13ZpWYZuZpEkyEYEsJ7ngLgvFAmRjQ6ruuGrHAwowHa9zSuBA5LkdN7Nw8L8xrz3yUtLq9MPt51JaEnzKFWjDxefntznhtJvaB1bEx4YpwpDARpYv58bF7nRaa324hxPAEZHBxmJUodezxB1kvsLQVHMFj854gLqQrx1hrT4jdU47WcgqFUx4f2X23C4jouiM1n4M8hPn7cH2xxhGi3xjdVyti367qKwvLs3cFBme8vKh4pJiYfTUPPXxDgacuyizxvU7PnTwaUrLfgSbwJPR1d7fyYHnfn8YNabAvfBdQy4LGWjQczEXj"), gson.toJson(content)));
 
 
 		System.out.println(checkTransaction(transaction));

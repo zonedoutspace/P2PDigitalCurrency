@@ -1,13 +1,23 @@
 package com.boun.main;
 
+import java.util.Scanner;
+
 import com.boun.file.FileOperations;
+import com.boun.mining.Pool;
 import com.boun.network.NetworkData;
 import com.boun.network.NetworkListener;
 import com.boun.network.RequestSender;
+import com.boun.network.forwards.TransactionForwardRequest;
+import com.boun.network.forwards.TransactionForwardThread;
 import com.boun.network.gets.GetNumberOfGenesisRequest;
 import com.boun.operations.BlockOperations;
 import com.boun.operations.PeerOperation;
+import com.boun.operations.TransactionOperations;
+import com.boun.server.CreateGenesis;
 import com.boun.server.Properties;
+import com.boun.signature.Generator;
+import com.boun.structures.Transaction;
+import com.boun.user.TransactionInteractions;
 
 public class Client {
 
@@ -65,7 +75,7 @@ public class Client {
 		}
 		
 		
-		System.out.println("Blocks are being downloaded");		
+		System.out.println("Blocks numbers are being downloaded");		
 	
 		try{
 			BlockOperations.getBlockNumberFromPeers();
@@ -105,8 +115,104 @@ public class Client {
 		System.out.println("Sending ip to other peers");
 		PeerOperation.sendIpToPeers();
 		
+		showMenu();
 		
 		
+		
+	}
+
+
+	private static void showMenu() {
+		
+		while(true){
+			
+			displayOptions();
+			int selection = getSelection();
+			System.out.println("selection"+selection);
+			switch (selection) {
+				case 1:
+					createKeys();
+					break;
+				case 2:
+					newTransaction();
+					break;
+				case 3:
+					return;	
+				default:
+					break;
+			}
+		}
+		
+	}
+	
+	private static void createKeys() {
+		try {
+			Generator.createMyKeys();
+		} catch (Exception e) {
+			System.out.println("The keys cannot be generated.");
+			e.printStackTrace();
+		}		
+	}
+
+
+	private static void newTransaction() {
+		try {
+			Transaction transaction = TransactionInteractions.createNewTransaction();
+			
+			String result = TransactionOperations.checkTransaction(transaction);
+			
+			if(!result.equals("Verified")){
+				System.out.println(result);
+			}
+			else{
+				System.out.println("It will be added to the pool");
+				String poolAdd = Pool.addTransaction(transaction);
+				
+				if(poolAdd!=null){
+					System.out.println(poolAdd);
+				}
+				else{
+					System.out.println("It will be forwarded.");
+					TransactionForwardThread thread = new TransactionForwardThread(transaction, NetworkData.getMyIp());
+					thread.run();
+					System.out.println("The forward thread is working");
+				}
+				
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
+		
+		
+	}
+
+
+	public static void displayOptions(){
+		
+		System.out.println("Menu");
+		System.out.println("1) Generate keys");
+		System.out.println("2) Create a transaction");
+		System.out.println("3) Exit");
+		
+	}
+	
+	
+	public static int getSelection(){
+		
+		System.out.println("get selection start");
+		Scanner scanner = new Scanner(System.in);
+		
+		
+		int selection = Integer.valueOf(scanner.nextLine());
+ 
+		
+		System.out.println("get selection end");
+		
+		return selection;
 	}
 
 }

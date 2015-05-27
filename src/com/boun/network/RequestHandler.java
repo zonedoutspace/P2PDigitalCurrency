@@ -126,6 +126,7 @@ public class RequestHandler extends Thread {
 				return transactionForwardRequest.handleRequest();
 			
 			case GetNumberOfBlockRequest.REQUEST_CODE:
+				System.out.println("GetNumberOfBlockRequest");
 				GetNumberOfBlockRequest getNumberOfBlockRequest = (GetNumberOfBlockRequest) gson.fromJson(request.getRequestData(), GetNumberOfBlockRequest.class);
 				return getNumberOfBlockRequest.handleRequest();
 			

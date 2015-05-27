@@ -33,7 +33,7 @@ public class BlockOperations {
 		System.out.println("get block:"+blockID);
 		String blockDirectory = BLOCK_CHAIN_DIRECTORY+"/"+blockID+".txt";
 		String jSon = FileOperations.readFile(blockDirectory);
-		System.out.println(jSon);
+		//System.out.println(jSon);
 		Gson gson = new Gson();
 		return gson.fromJson(jSon,Block.class);	
 	}
@@ -118,7 +118,12 @@ public class BlockOperations {
 		//get block numbers from peers
 		for(int i=0;i<peerList.length;++i){
 			
+			
+			
 			try{
+				
+				System.out.println("getting # of blocks from " + peerList[i]);
+				
 				GetNumberOfBlockRequest request = new GetNumberOfBlockRequest();
 				
 				String result = RequestSender.send(request, peerList[i]);
