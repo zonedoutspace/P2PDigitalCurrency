@@ -1,9 +1,13 @@
 # P2PDigitalCurrency
 
 Project Name: Partially Centralized Simple Peer to Peer Digital Currency
+
 Project Team: Erkan Erol , 2010400129
+
 Advisor: Can Özturan
+
 Term: 2014-2015/2
+
 Keywords: Digital Currency, Centralized, Peer to Peer, Simplified,
 Bitcoin,Cryptocurrency
 
