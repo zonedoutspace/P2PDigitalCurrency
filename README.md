@@ -11,8 +11,6 @@ Term: 2014-2015/2
 Keywords: Digital Currency, Centralized, Peer to Peer, Simplified,
 Bitcoin,Cryptocurrency
 
-#Video
-https://youtu.be/o6kPEjx2_K4
 
 # Abstract
 After the increase in the use of Bitcoin [1] , digital curriencies are very popular as
